@@ -8,6 +8,8 @@ public class Main {
             values[i] = parseInt(args[i]);
         }
 
+        bubbleSort(values);
+
         for (int v : values) {
             System.out.println(v);
         }
@@ -15,12 +17,10 @@ public class Main {
 
     private static int parseInt(String s) {
         int value = 0;
-        boolean negative = false;
+        boolean negative = s.charAt(0) == '-';
 
-        for (int i = 0; i < s.length(); ++i) {
-            if (i == 0 && s.charAt(i) == '-') {
-                negative = true;
-            } else if (s.charAt(i) < '0' || s.charAt(i) > '9') {
+        for (int i = negative ? 1 : 0; i < s.length(); ++i) {
+            if (s.charAt(i) < '0' || s.charAt(i) > '9') {
                 throw new IllegalArgumentException("Oops");
             } else {
                 value = value * 10 + s.charAt(i) - '0';
@@ -28,5 +28,17 @@ public class Main {
         }
 
         return negative ? -value : value;
+    }
+
+    private static void bubbleSort(int[] arr) {
+        for (int i = 0; i < arr.length; ++i) {
+            for (int j = 0; j < arr.length; ++j) {
+                if (arr[i] > arr[j]) {
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
     }
 }
